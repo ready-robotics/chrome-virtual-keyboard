@@ -42,22 +42,14 @@ var dialogs =[];
 var OPEN_SETTINGS = false; // Open KB settings page the first time
 var ALT_LAYOUTS = [
     {"value":"en","name":"English (QWERTY)"},
-    {"value":"it","name":"Italian (QWERTY)"},
-    {"value":"de","name":"German (QWERTZ)"},
-    {"value":"sl","name":"Slovenian (QWERTZ)"},
-    {"value":"es","name":"Spanish (QWERTY)"},
-    {"value":"ru","name":"Russian (JCUKEN)"},
-    {"value":"fr","name":"French (AZERTY)"},
-    {"value":"kr","name":"Korean"},
-    {"value":"sw","name":"Swedish (QWERTY)"}
 ];
 var CAPS_LOCK = "true";
 var HW_ACCEL = "true";
-var INTELLISCROLL = "false";
+var INTELLISCROLL = "true";
 var DEFAULT_LAYOUT = "en";
 var REPEAT_LETTERS = "true";
-var SMALL_KB = "true";
-var TOGGLE_KB = "true";
+var SMALL_KB = "false";
+var TOGGLE_KB = "false";
 var TOUCH_EVENTS = "true";
 var URL_BUTTON = "false";
 
@@ -333,6 +325,11 @@ function virtualKeyboardChromeExtension_click(key, skip) {
                         }
                     }
                 }
+
+                // Fire Submit Event for Enter Key to work-around unidentifiable Keyboard Event key codes
+                virtualKeyboardChromeExtensionClickedElem.dispatchEvent(
+                    virtualKeyboardChromeExtension_fireEvent("submit")
+                );
                 virtualKeyboardChromeExtension_dispatch_event();
                 virtualKeyboardChromeExtension_generate_onchange();
             }
