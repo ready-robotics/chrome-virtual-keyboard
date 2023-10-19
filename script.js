@@ -920,6 +920,14 @@ function init_virtualKeyboardChromeExtension(firstTime) {
                 if (e[i].getAttribute("_vkEnabled") == undefined) {
                     e[i].setAttribute("_vkEnabled", "true");
                     e[i].onclick = function (ent) {
+                        // for touch events, add active class for 125ms to highlight the key
+                        if (virtualKeyboardChromeExtensionTouchEvents == "true") {
+                          elem = this;
+                          elem.className += " active";
+                          setTimeout((element) => {
+                            element.className = element.className.replace(" active", "");
+                          }, 125, elem);
+                        }
                         var k = this.getAttribute("_key");
                         if (virtualKeyboardChromeExtensionShift) {
                             if (this.getAttribute("_keyC") != undefined) {
